@@ -18,21 +18,11 @@ variable "cidr_subnet_ext_b" {
     description = "CIDR para a subnet externa B criada - Rede Pública"
     type = string
 }
-variable "environment" {
-    description = "Ambiente do recurso"
-    type = string
-    default = "Tech_Challenge"
-}
-variable "region_a" {
-    description = "Região A do recurso"
-    type = string
-    default = "us-east-2a"
-}
-variable "region_b" {
-    description = "Região A do recurso"
-    type = string
-    default = "us-east-2b"
-}
+variable "environment" {}
+variable "region_a" {}
+variable "region_b" {}
+variable "eks_cluster_name" {}
+
 variable "route_cidr_block" {
     description = "CIDR de destino para roteamento"
     type = string

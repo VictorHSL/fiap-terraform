@@ -2,21 +2,21 @@ output "vpc_id" {
     description = "ID da vpc"
     value = aws_vpc.vpc_tech_challenge.id
 }
-output "subnet_ext_a_id" {
+output "ext_subnet_a_id" {
     description = "ID da subnet externa a"
-    value = aws_subnet.sub_ext_a_tech_challenge.id
+    value = aws_subnet.ext_sub_a_tech_challenge.id
 }
-output "subnet_ext_b_id" {
+output "ext_subnet_b_id" {
     description = "ID da subnet externa b"
-    value = aws_subnet.sub_ext_b_tech_challenge.id
+    value = aws_subnet.ext_sub_b_tech_challenge.id
 }
-output "subnet_int_a_id" {
+output "int_subnet_a_id" {
     description = "ID da subnet interna a"
-    value = aws_subnet.sub_int_a_tech_challenge.id
+    value = aws_subnet.int_sub_a_tech_challenge.id
 }
-output "subnet_int_b_id" {
+output "int_subnet_b_id" {
     description = "ID da subnet interna b"
-    value = aws_subnet.sub_int_b_tech_challenge.id
+    value = aws_subnet.int_sub_b_tech_challenge.id
 }
 output "api_gatewaey" {
     description = "ID do gateway"
@@ -39,7 +39,7 @@ output "nat_gateway_b" {
     value = aws_nat_gateway.nat_gtw_a
 }
 output "security_groups" {
-    description = "ID do security group"
+    description = "ID do grupo de segurança do load balance"
     value = aws_security_group.security_group_load_balance.id
 }
 output "load_balance" {

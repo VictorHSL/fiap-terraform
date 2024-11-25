@@ -10,21 +10,54 @@ terraform {
 }
 
 provider "aws" {
-  region     = "us-east-2"
-  access_key = "AKIAZI2LE2LLWR7IBYPF"
-  secret_key = "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"
+  region     = var.aws_region
+  access_key = var.access_key
+  secret_key = var.secret_key
 }
 
 module "network" {
-  source = "./network"
+
+  source = "./modules/network"
 
   cidr_vpc          = "10.110.0.0/16"
   cidr_subnet_int_a = "10.110.1.0/24"
   cidr_subnet_ext_a = "10.110.11.0/24"
   cidr_subnet_int_b = "10.110.2.0/24"
   cidr_subnet_ext_b = "10.110.10.0/24"
-  environment       = "tech_challenge"
-  region_a          = "us-east-2a"
-  region_b          = "us-east-2b"
+  environment       = var.environment
+  region_a          = var.region-subnet-a
+  region_b          = var.region-subnet-b
   route_cidr_block  = "0.0.0.0/0"
+  eks_cluster_name  = var.eks_cluster_name
+
+}
+
+module "cluster" {
+
+  source = "./modules/cluster"
+
+  environment        = var.environment
+  aws_region         = var.aws_region
+  eks_cluster_name   = var.eks_cluster_name
+  eks_version        = var.eks_version
+  vpc_id                = module.network.vpc_id
+  internal_subnet_1a_id = module.network.int_subnet_a_id
+  internal_subnet_1b_id = module.network.int_subnet_b_id
+
+}
+
+module "nodes" {
+  source = "./modules/nodes"
+
+  environment        = var.environment
+  eks_cluster_name   = var.eks_cluster_name
+
+  internal_subnet_1a_id = module.network.int_subnet_a_id
+  internal_subnet_1b_id = module.network.int_subnet_b_id
+
+  eks_cluster    = module.cluster.eks_cluster
+  eks_cluster_sg = module.cluster.eks_cluster_sg
+
+  nodes_instances_sizes = var.nodes_instances_sizes
+  auto_scale_options    = var.auto_scale_options
 }
