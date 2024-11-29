@@ -11,17 +11,17 @@ variable "secret_key" {
 variable "aws_region" {
     description = "Região dos recursos"
     type = string
-    default = "us-east-2"
+    default = "us-east-1"
 }
 variable "region-subnet-a" {
     description = "Região da subnet a"
     type = string
-    default = "us-east-2a"
+    default = "us-east-1a"
 }
 variable "region-subnet-b" {
     description = "Região da subnet b"
     type = string
-    default = "us-east-2b"
+    default = "us-east-1b"
 }
 variable "environment" {
     description = "Ambiente do recurso"
