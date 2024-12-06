@@ -3,7 +3,7 @@ resource "aws_eks_node_group" "eks_node_group" {
   cluster_name    = var.eks_cluster.name
   node_group_name = "EKS_Node_Group-${var.environment}"
   
-  node_role_arn   = "arn:aws:iam::<ID da conta>:role/LabRole"
+  node_role_arn   = "arn:aws:iam::${var.account_id}:role/LabRole"
 
   subnet_ids = [
     var.internal_subnet_1a_id,

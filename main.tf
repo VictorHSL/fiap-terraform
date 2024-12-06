@@ -11,10 +11,9 @@ terraform {
 
 provider "aws" {
   region     = var.aws_region
-  access_key = "ASIASBPSPDOIXK6EFAAC"
-  secret_key = "ga+yCV3BXkX7vLOASwDMSC6H1hkWKvYjmzqLZOKg"
-  token      = "IQoJb3JpZ2luX2VjENH//////////wEaCXVzLXdlc3QtMiJIMEYCIQC3cRK4YGKM8RQqi16y2sx0x2f80A8EuTkxclO3E8W7awIhAPaVZipVXsuUMGaFr8QYWranKMS4MHgxGuMK3EuA5QCkKrgCCHoQABoMMTQwNjMxODA4OTEzIgwpZYpmahgsDsETNOsqlQLoyqsT6ayCyRmjkhhYFgMvtoqAoCHdKyG23FP5E0ypwozTAVhB9lZF7a6jm7glNumgBaKEq4yY2c8i4pumDObE3FOIKqh3MZ1mulS1/yyZFtD8MYC95qGYcos5GKnmAhBTDG+Jdd9zT9X/MoTGyYv30xslL/55OFmsOYNd+85pFj9PkTBAzH8eQKZ+qKrYC3YHGU8YnonQZjCgpXnYtQBIQWD3DiNjABWVN2L0iglF8E+Hg7HpfDTJH3iK1omR2bDSm6osvZTaJJhyV49DiDwRYfQrVPaO6YXKLOUnx0sZyZZCWuPzieUtypbQ+aNiWLm6pX3aZZEDKc/s61F8ObjiX8OK4T3KXTL4rptJ1i+XGE3ZeOiiMM7Yp7oGOpwBgw9+CoFwb171IRpnwhQIKXTd8ZHAczaxhUaO10mY30bNnWn7lkjMQPXaxGzIHlN+VY1OEVtcbLgfalFAi7u7OGU60EPhh5j7lWzjktOzkC1ZYOnDP1knddshqdiLSfJKpyq1GQVMSfEZ6Yr1hUnTKhJaY6U7HuqrMY0ATYwgtg/cVd3PfZU2GEemU85AxoziQ8gkUXliSoIV9IiQ"
-  
+  access_key = var.access_key
+  secret_key = var.secret_key
+  token      = var.session_token
 }
 
 module "network" {
@@ -42,6 +41,7 @@ module "cluster" {
   aws_region            = var.aws_region
   eks_cluster_name      = var.eks_cluster_name
   eks_version           = var.eks_version
+  account_id            = var.account_id
   vpc_id                = module.network.vpc_id
   internal_subnet_1a_id = module.network.int_subnet_a_id
   internal_subnet_1b_id = module.network.int_subnet_b_id
@@ -53,6 +53,7 @@ module "nodes" {
 
   environment      = var.environment
   eks_cluster_name = var.eks_cluster_name
+  account_id       = var.account_id
 
   internal_subnet_1a_id = module.network.int_subnet_a_id
   internal_subnet_1b_id = module.network.int_subnet_b_id

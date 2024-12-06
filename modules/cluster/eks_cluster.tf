@@ -3,7 +3,7 @@ resource "aws_eks_cluster" "eks_cluster" {
 
     name    = var.eks_cluster_name
     version = var.eks_version
-    role_arn = "arn:aws:iam::<ID da conta>:role/LabRole"
+    role_arn = "arn:aws:iam::${var.account_id}:role/LabRole"
 
     vpc_config {
 
