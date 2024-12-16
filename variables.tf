@@ -58,4 +58,6 @@ variable "auto_scale_options" {
     max     = 10
     desired = 2
   }
+
+
 }
