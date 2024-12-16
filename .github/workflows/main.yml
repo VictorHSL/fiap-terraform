@@ -1,0 +1,38 @@
+name: Terraform CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    env:
+      TF_VAR_access_key: ${{ secrets.TF_VAR_access_key }}
+      TF_VAR_secret_key: ${{ secrets.TF_VAR_secret_key }}
+      TF_VAR_account_id: ${{ secrets.TF_VAR_account_id }}
+      TF_VAR_session_token: ${{ secrets.TF_VAR_session_token }}
+      TF_VAR_aws_region: ${{ secrets.TF_VAR_aws_region }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.0.11
+
+      - name: Terraform Init
+        run: terraform init
+        
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
